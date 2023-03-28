@@ -13,6 +13,10 @@ function loadZone(up){
     enemyHp = enemyMaxHp;
     document.getElementById("zone").innerHTML = "Zone " + zone;
 }
+hpBar = document.getElementById("playerhpbar")
+function hpBar(){
+    hpBar.style.width = 100;
+}
 
 var lastFrameAt = 0;
 function Update(timestamp){;
