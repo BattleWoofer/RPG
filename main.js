@@ -133,6 +133,7 @@ function ADCalc(){
 playerHpBar = document.getElementById("playerhpbar");
 hpBar = document.getElementById("enemyhpbar")
 expBar = document.getElementById("expbar")
+attackBar = document.getElementById("attackbar")
 function barUpdate(){
     hpBar.style.width = (400 * (enemyHp / enemyMaxHp )) + "px"
     hpBar.innerHTML = enemyHp + "/" + enemyMaxHp;
@@ -140,4 +141,5 @@ function barUpdate(){
     playerHpBar.innerHTML = Math.floor(playerCurrentHp) + "/" + Math.floor(playerHp);
     expBar.style.width = (200 * (exp / expToNext)) + "px"
     expBar.innerHTML = Math.floor((exp / expToNext) * 100) + "%"
+    attackBar.style.width = (400 * (attackCharge / attackSeconds)) + "px"
     }
