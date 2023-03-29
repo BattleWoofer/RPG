@@ -80,10 +80,7 @@ function ADCalc(){
     AD = 1 + ADPurchase;
 }
 function barUpdate(){
-    hpBar = document.getElementById("pp")
-    hpText = ["):             "]
-    for (let i = Math.ceil(((enemyHp * 100)/ (enemyMaxHp  * 100)) * 100); i  > 0; i--){
-        hpText.push("/")
+    hpBar = document.getElementById("playerhpbar")
+    hpBar.style.width = (400 * (enemyHp / enemyMaxHp )) + "px"
+    hpBar.innerHTML = enemyHp + "/" + enemyMaxHp;
     }
-    hpBar.innerHTML = hpText.join("");
-}

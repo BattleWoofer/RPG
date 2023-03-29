@@ -1,4 +1,8 @@
 #playerhpbar{
-  color: white;
+  color:white;
+  width: 400px;
     background-color:#a3171e
+}
+#pp{
+  color:#a3171e;
 }
