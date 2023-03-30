@@ -142,4 +142,5 @@ function barUpdate(){
     expBar.style.width = (200 * (exp / expToNext)) + "px"
     expBar.innerHTML = Math.floor((exp / expToNext) * 100) + "%"
     attackBar.style.width = (400 * (attackCharge / attackSeconds)) + "px"
+    attackBar.innerHTML = Math.floor(attackCharge * 100 / attackSeconds) + "%"
     }
