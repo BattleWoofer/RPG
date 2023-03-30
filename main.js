@@ -45,7 +45,7 @@ window.requestAnimationFrame(Update)
 var attackCharge = 0;
 function Charge(time){
     attackCharge += time;
-    attackSeconds = 3 * Math.pow(0.99, level)
+    attackSeconds = 0.1 * Math.pow(0.99, level)
     if(attackCharge >= attackSeconds){
         Attack()
         attackCharge = 0;
@@ -118,14 +118,18 @@ function kill(){
     loadZone(1)
 }
 document.getElementById("sword").addEventListener("click", function(buyS){
-    buySword()
+    buy("sword")
 })
 ADPurchase = 0;
-function buySword(){
-    if(gold >= Math.floor(4 * (Math.pow(1.5, ADPurchase)))){
-    gold -= Math.floor(4 * (Math.pow(1.5, ADPurchase)))
-    ADPurchase += 1;
-    document.getElementById("sword").innerHTML = "Cost: " + Math.floor(4 * (Math.pow(1.5, ADPurchase)))}
+function buy(thing){
+    if(thing == "sword"){
+        if(gold >= Math.floor(4 * (Math.pow(1.5, ADPurchase)))){
+            gold -= Math.floor(4 * (Math.pow(1.5, ADPurchase)))
+            ADPurchase += 1;
+            document.getElementById("sword").innerHTML = "Cost: " + Math.floor(4 * (Math.pow(1.5, ADPurchase)))
+            document.getElementById("swordtext").innerHTML = "Sword: Level "+ ADPurchase;
+        }
+    }
 }
 function ADCalc(){
     AD = 1 + ADPurchase;

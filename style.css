@@ -10,6 +10,7 @@
   color:white;
   width: 200px;
   background-color:purple;
+
 }
 #playerhpbar{
   color:white;
@@ -17,4 +18,5 @@
 }
 #attackbar{
   background-color: orange;
+  font-size: 9px;
 }
