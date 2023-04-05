@@ -8,9 +8,9 @@
 
     <title>Document</title>
 </head>
-<body>
-    <span style="white-space: nowrap;"><p style="display: inline-block;" id="leveltext">Lvl 1 </p><div id="expbar" style="display: inline-block;">0/6</div>
-    <p id="zone">Zone 1</p>
+<body id="body">
+    <span style="white-space: nowrap;"><p style="display: inline-block;" id="leveltext">Lvl 1 </p><div id="expbar" style="display: inline-block;">0/6</div><br>
+    <p id="zone" style="display:inline-block">Zone 1</p><button style="display:inline-block" id="adv">Advance</button>
     <div id="enemyhpbar">5/5</div>
     <br>
         <div id="playerhpbar">50/50</div><div id="attackbar"></div>
@@ -21,9 +21,23 @@
     <div id="upgpanel">
         <p id="gold"></p>
         <img src="IMG_0322.jpg" alt="pic" width="32" height="32" syle="display: inline-block"> <button id="sword" style="display: inline-block;">Cost: 4</button><p id="swordtext" style="display: inline-block;">This is text</p>
+        <br>
+        <button id="bigsword">Cost: 50</button><p id="ad"></p>
+        <p id="l"></p>
     </div>
     <div id="treepanel">
-        <button>Perk One</button>
+        <button>AD</button>       
+        <button>APS</button>
+        <button>AP</button>
+        <button>HP</button>
+        <br>
+        <p>Title</p>
+        <p>desc</p>
+        <p>effect</p>
+        <div id="adPanel"><button>XX</button><button>XX</button><button class="red" id="D1">D1</button><button>XX</button><button>XX</button>
+            <br>
+            <button>XX</button><button>XX</button><button class="red" id="D2">D2</button><button>XX</button><button>XX</button></div>
+
     </div>
 
 
