@@ -17,27 +17,36 @@
     <hr>
     <button id="upgtab">Upgrades</button>
     <button id="treetab">Tree</button>
+    <button id="weaponupgtab">Weapon Upgrades</button>
     <hr>
     <div id="upgpanel">
         <p id="gold"></p>
-        <img src="IMG_0322.jpg" alt="pic" width="32" height="32" syle="display: inline-block"> <button id="sword" style="display: inline-block;">Cost: 4</button><p id="swordtext" style="display: inline-block;">This is text</p>
+        <img src="IMG_0322.jpg" alt="pic" width="32" height="32" style="display: inline-block"> <button id="sword" style="display: inline-block;">Cost: 4</button><p id="swordtext" style="display: inline-block;">This is text</p>
         <br>
-        <button id="bigsword">Cost: 50</button><p id="ad"></p>
+        <img src="IMG_0322.jpg" alt="pic" width="32" height="32" style="display: none;" class="bs">
+        <button id="bigsword" class="bs" style="display: none;">Cost: 50</button><p id="ad" class="bs" style="display: none;"></p>
         <p id="l"></p>
     </div>
     <div id="treepanel">
-        <button>AD</button>       
-        <button>APS</button>
-        <button>AP</button>
-        <button>HP</button>
+        <p id="tomes"></p>
+        <button id="adbutton">AD</button>       
+        <button id="apsbutton">APS</button>
+        <button id="apbutton">AP</button>
+        <button id="hpbutton">HP</button>
         <br>
-        <p>Title</p>
-        <p>desc</p>
-        <p>effect</p>
-        <div id="adPanel"><button>XX</button><button>XX</button><button class="red" id="D1">D1</button><button>XX</button><button>XX</button>
+        <p id="perktitle">Select a Perk to view details</p>
+        <p id="perkdesc">-</p>
+        <p id="perkeffect">-</p>
+        <div id="adpanel" style="display: none;">
+            <button>XX</button><button>XX</button><button class="red perkbuttons" id="D1">D1</button><button>XX</button><button>XX</button>
             <br>
-            <button>XX</button><button>XX</button><button class="red" id="D2">D2</button><button>XX</button><button>XX</button></div>
-
+            <button>XX</button><button>XX</button><button class="red perkbuttons" id="D2">D2</button><button>XX</button><button>XX</button>
+            <br>
+            <button>XX</button><button>XX</button><button class="red perkbuttons" id="D3">D3</button><button>XX</button><button>XX</button>
+        </div></div>
+    <div id="wupgpanel" style="display: none;">
+        <p>Im here</p>
+        <button>woaos</button>
     </div>
 
 

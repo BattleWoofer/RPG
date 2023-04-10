@@ -2,6 +2,9 @@ var gold = 0;
 var AD = 1;
 var attackSeconds = 3;
 
+ADPurchase = 0;
+AD2Purchase = 0;
+
 var zone = 1;
 var hZE = 0;
 var enemyMaxHp = 5;
@@ -16,22 +19,29 @@ var expToNext = 6;
 var devspeed = 1;
 var elapsed = 0;
 
-var D11 = false;
-var D12 = false;
+var D11 = 0;
+var D12 = 0;
+var D13 = 0;
 
 var tomes = 0;
+tomeBank = 0;
+
 advancing = true;
 
+document.getElementById("tomes").innerHTML = tomes + " tomes";
+document.getElementById("sword").innerHTML = "Cost: " + Math.floor(4 * (Math.pow(1.5, ADPurchase)))
+            document.getElementById("swordtext").innerHTML = "Sword: Level "+ ADPurchase;
 
 loadZone(0);
 function loadZone(up){
     playerCurrentHp = playerHp;
     zone += up;
-    if(zone > hZE){hze=zone}
+    if(zone > hZE){hZE=zone}
     enemyMaxHp = Math.floor(5 * Math.pow(1.25, zone - 1));
     enemyHp = enemyMaxHp;
     valueCalc();
     document.getElementById("zone").innerHTML = "Zone " + zone + " ("+value + ")";
+    attackCharge = 0;
 }
 hpBar = document.getElementById("playerhpbar")
 function hpBar(){
@@ -53,7 +63,9 @@ function Update(timestamp){;
 
     ADCalc();
     document.getElementById("gold").innerHTML = "Gold: " + gold;
-
+    if(attackCharge < 0){
+        attackCharge = 0;
+    }
 }
 window.requestAnimationFrame(Update)
 
@@ -78,7 +90,7 @@ function enemyCharges(time){
 }
 function eADCalc(){
     eAD = (Math.pow(1.1, zone) * (zone * 0.5)) + 1;
-    if(D12 == true){
+    if(D12 == 1){
         eAD /= (Math.pow(AD, 0.3333333) / 2)
     }
     eAD = Math.floor(eAD)
@@ -127,11 +139,17 @@ document.getElementById("treepanel").style.display = "none"
 document.getElementById("upgtab").addEventListener("click", function(a){
     document.getElementById("upgpanel").style.display = "block"
     document.getElementById("treepanel").style.display = "none"
+    document.getElementById("wupgpanel").style.display = "none"
 })
 document.getElementById("treetab").addEventListener("click", function(b){
     document.getElementById("treepanel").style.display = "block"
     document.getElementById("upgpanel").style.display = "none"
-
+    document.getElementById("wupgpanel").style.display = "none"
+})
+document.getElementById("weaponupgtab").addEventListener("click", function(a){
+    document.getElementById("upgpanel").style.display = "none"
+    document.getElementById("treepanel").style.display = "none"
+    document.getElementById("wupgpanel").style.display = "block"
 })
 
 function Attack(){
@@ -142,10 +160,18 @@ function valueCalc(){
     value = Math.floor((2 * Math.pow(1.25, zone - 1)))
     value *= ((Math.floor(zone / 10))+1)
 }
+function tomeCheck(){
+    if(hZE == zone){
+        if((zone / 10) == Math.floor(zone / 10)){
+            tomes += 1;
+            document.getElementById("tomes").innerHTML = tomes + " tomes";
+        }
+    }
+}
 function kill(){
     valueCalc()
     gold  += value
-    if(zone == hZE && Math.floor(zone/10) == zone/10){tomes += 1;}
+   tomeCheck()
     enemyCharge = 0;
     playerLoadHp(1);
     if(playerCurrentHp > playerHp){playerCurrentHp = playerHp}
@@ -160,8 +186,7 @@ document.getElementById("sword").addEventListener("click", function(buyS){
 document.getElementById("bigsword").addEventListener("click", function(buyBS){
     buy("bigsword")
 })
-ADPurchase = 0;
-AD2Purchase = 0;
+
 function buy(thing){
     if(thing == "sword"){
         if(gold >= Math.floor(4 * (Math.pow(1.5, ADPurchase)))){
@@ -201,4 +226,118 @@ function barUpdate(){
     if(advancing == true){
         document.getElementById("adv").style.display = "none";
     }else{document.getElementById("adv").style.display = "inline-block";}
+
+    if(D11 == 1 && D11loaded == false){addUpgrade("bigsword")}
     }
+
+D11loaded = false;
+function addUpgrade(upg){
+    if(upg == "bigsword"){
+        bigsword = document.getElementsByClassName("bs")
+        for(var i = 0; i < bigsword.length; i++){
+            bigsword[i].style.display = "inline-block"
+        }
+        D11loaded = true;
+        console.log("tick")
+    }
+    
+
+
+}
+adPanel = document.getElementById("adpanel")
+function loadTree(tree){
+    if(tree == "ad"){
+        adPanel.style.display = "block"
+    }
+    if(tree == "aps"){
+        adPanel.style.display = "none"
+    }
+    if(tree == "ap"){
+        adPanel.style.display = "none"
+    }
+    if(tree == "hp"){
+        adPanel.style.display = "none"
+    }
+}
+
+perktitle = document.getElementById("perktitle");
+perkdesc = document.getElementById("perkdesc");
+perkeffect = document.getElementById("perkeffect");
+var perkhover;
+function loadPerk(perk){
+    if(perk == "D1"){
+        perktitle.innerHTML = "Really Big Sword (" + D11 + "/1)" 
+        perkdesc.innerHTML = "Unlock a new upgrade to exponentially increase AD."
+        perkeffect.innerHTML = "-"
+        perkhover = "D1"
+    }
+    if(perk == "D2"){
+        perktitle.innerHTML = "Ferocity"
+        perkdesc.innerHTML = "Your power scares the enemy, reducing damage taken based on your AD."
+        perkeffect.innerHTML = "Currently: /" +  (Math.pow(AD, 0.3333333) / 2)
+        perkhover = "D2"
+    }
+    if(perk == "D3"){
+        perktitle.innerHTML = "Expertise"
+        perkdesc.innerHTML = "Gain knowledge of cheaper weapons to use, reducing costs of both swords."
+        perkeffect.innerHTML = "Next level: /4"
+        perkhover = "D3"
+    }
+}
+function buyPerk(){
+    if(perkhover == "D1"){
+        if(tomes >= 1){
+            tomeBank++;
+            tomes--;
+            D11 = 1;
+            document.getElementById("tomes").innerHTML = tomes + " tomes";
+        }
+    }
+    if(perkhover == "D2"){
+        if(tomes >= 1){
+            tomeBank++;
+            tomes--;
+            D12 = 1;
+            document.getElementById("tomes").innerHTML = tomes + " tomes";
+        }
+    }
+    if(perkhover == "D3"){
+        if(tomes >= 1){
+            tomeBank++;
+            tomes--;
+            D13 += 1;
+            document.getElementById("tomes").innerHTML = tomes + " tomes";
+        }
+    }
+}
+
+document.getElementById("adbutton").addEventListener("click", function(a){
+    loadTree("ad")
+})
+document.getElementById("apsbutton").addEventListener("click", function(b){
+    loadTree("aps")
+})
+document.getElementById("apbutton").addEventListener("click", function(c){
+    loadTree("ap")
+})
+document.getElementById("hpbutton").addEventListener("click", function(e){
+    loadTree("hp")
+})
+document.getElementById("D1").addEventListener("mouseover", function(z){
+    loadPerk("D1");
+})
+document.getElementById("D2").addEventListener("mouseover", function(z){
+    loadPerk("D2");
+})
+document.getElementById("D3").addEventListener("mouseover", function(z){
+    loadPerk("D3");
+})
+
+
+var perkbuttons = document.querySelectorAll(".perkbuttons");
+
+for(var i = 0; i < perkbuttons.length; i++){
+  perkbuttons[i].addEventListener("click", function() {
+    buyPerk();
+  });
+}
