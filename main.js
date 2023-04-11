@@ -189,18 +189,18 @@ document.getElementById("bigsword").addEventListener("click", function(buyBS){
 
 function buy(thing){
     if(thing == "sword"){
-        if(gold >= Math.floor(4 * (Math.pow(1.5, ADPurchase)))){
-            gold -= Math.floor(4 * (Math.pow(1.5, ADPurchase)))
+        if(gold >= Math.floor(4 * (Math.pow(1.5, ADPurchase)) / Math.max(1, 0.5 * Math.pow((D13+1),4)))){
+            gold -= Math.floor(4 * (Math.pow(1.5, ADPurchase)) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
             ADPurchase += 1;
-            document.getElementById("sword").innerHTML = "Cost: " + Math.floor(4 * (Math.pow(1.5, ADPurchase)))
+            document.getElementById("sword").innerHTML = "Cost: " + Math.floor((4 * (Math.pow(1.5, ADPurchase))) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
             document.getElementById("swordtext").innerHTML = "Sword: Level "+ ADPurchase;
         }
     }
     if(thing == "bigsword"){
-        if(gold >= Math.floor(50 * Math.floor(Math.pow(10, AD2Purchase)))){
-            gold -= Math.floor(50 * Math.floor(Math.pow(10, AD2Purchase)));
+        if(gold >= Math.floor(50 * Math.floor(Math.pow(10, AD2Purchase)) / Math.max(1, 0.5 * Math.pow((D13+1),4)))){
+            gold -= Math.floor(50 * Math.floor(Math.pow(10, AD2Purchase)) / Math.max(1, 0.5 * Math.pow((D13+1),4)));
             AD2Purchase += 1;
-            document.getElementById("bigsword").innerHTML = "Cost: " + Math.floor(50 * Math.floor(Math.pow(10, AD2Purchase)))
+            document.getElementById("bigsword").innerHTML = "Cost: " + Math.floor((50 * Math.floor(Math.pow(10, AD2Purchase))) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
 
         }
     }
@@ -272,15 +272,15 @@ function loadPerk(perk){
         perkhover = "D1"
     }
     if(perk == "D2"){
-        perktitle.innerHTML = "Ferocity"
+        perktitle.innerHTML = "Ferocity (" + D12 + "/1)"
         perkdesc.innerHTML = "Your power scares the enemy, reducing damage taken based on your AD."
-        perkeffect.innerHTML = "Currently: /" +  (Math.pow(AD, 0.3333333) / 2)
+        perkeffect.innerHTML = "Currently: /" +  Math.max((Math.pow(AD, 0.3333333) / 2),1)
         perkhover = "D2"
     }
     if(perk == "D3"){
-        perktitle.innerHTML = "Expertise"
+        perktitle.innerHTML = "Expertise (" + D13 + "/10)"
         perkdesc.innerHTML = "Gain knowledge of cheaper weapons to use, reducing costs of both swords."
-        perkeffect.innerHTML = "Next level: /4"
+        perkeffect.innerHTML = "Currently: /" + Math.max(1, 0.5 * Math.pow((D13+1),4)) + ", \n Next: /" + Math.max(1, 0.5 * Math.pow((D13+2),4))
         perkhover = "D3"
     }
 }
@@ -307,8 +307,11 @@ function buyPerk(){
             tomes--;
             D13 += 1;
             document.getElementById("tomes").innerHTML = tomes + " tomes";
+            document.getElementById("sword").innerHTML = "Cost: " + Math.floor((4 * (Math.pow(1.5, ADPurchase))) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
+            document.getElementById("bigsword").innerHTML = "Cost: " + Math.floor((50 * Math.floor(Math.pow(10, AD2Purchase))) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
         }
     }
+    loadPerk(perkhover)
 }
 
 document.getElementById("adbutton").addEventListener("click", function(a){
