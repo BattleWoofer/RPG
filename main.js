@@ -23,6 +23,10 @@ var D11 = 0;
 var D12 = 0;
 var D13 = 0;
 
+var stones = 0;
+var WUS = 0;
+var WUBS = 0;
+
 var tomes = 0;
 tomeBank = 0;
 
@@ -150,6 +154,7 @@ document.getElementById("weaponupgtab").addEventListener("click", function(a){
     document.getElementById("upgpanel").style.display = "none"
     document.getElementById("treepanel").style.display = "none"
     document.getElementById("wupgpanel").style.display = "block"
+    WUText();
 })
 
 function Attack(){
@@ -168,10 +173,19 @@ function tomeCheck(){
         }
     }
 }
+function stoneCheck(){
+    if(hZE == zone){
+        if((zone / 25) == Math.floor(zone / 25)){
+            stones += 1;
+            document.getElementById("stones").innerHTML = stones + " stones";
+        }
+    }
+}
 function kill(){
     valueCalc()
     gold  += value
    tomeCheck()
+   stoneCheck()
     enemyCharge = 0;
     playerLoadHp(1);
     if(playerCurrentHp > playerHp){playerCurrentHp = playerHp}
@@ -207,7 +221,8 @@ function buy(thing){
 }
 function ADCalc(){
     AD = 1 + ADPurchase;
-    AD = AD * Math.pow(2, AD2Purchase)
+    AD *= Math.pow((1 + (0.2 * WUS)), Math.floor(ADPurchase / 25))
+    AD = AD * Math.pow(2 + (0.2 * WUBS), AD2Purchase)
     document.getElementById("ad").innerHTML = AD + " AD"
 }
 playerHpBar = document.getElementById("playerhpbar");
@@ -343,4 +358,28 @@ for(var i = 0; i < perkbuttons.length; i++){
   perkbuttons[i].addEventListener("click", function() {
     buyPerk();
   });
+}
+
+WUStxt = document.getElementById("swordwutxt")
+WUBStxt = document.getElementById("bigswordwutxt")
+WUStxt.addEventListener("click", function(i){
+    wuscost = Math.pow(2, WUS)
+    if(stones >= wuscost){
+        WUS++
+        stones-=wuscost
+    }
+    WUText();
+})
+WUBStxt.addEventListener("click", function(i){
+    wubscost = Math.pow(2, WUBS)
+    if(stones >= wubscost){
+        WUBS++
+        stones-=wubscost
+    }
+    WUText();
+})
+
+function WUText(){
+    WUStxt.innerHTML = Math.pow(2, WUS) + " stones (" + (1+(0.2 * WUS)) + " > " + (1+(0.2 * (WUS+1))) + ")"
+    WUBStxt.innerHTML = Math.pow(2, WUBS) + " stones (" + (2+(0.2 * WUBS)) + " > " + (2+(0.2 * (WUBS+1))) + ")"
 }
