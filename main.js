@@ -22,6 +22,7 @@ var elapsed = 0;
 var D11 = 0;
 var D12 = 0;
 var D13 = 0;
+var D14 = 0;
 
 var stones = 0;
 var WUS = 0;
@@ -224,6 +225,12 @@ function ADCalc(){
     AD *= Math.pow((1 + (0.2 * WUS)), Math.floor(ADPurchase / 25))
     AD = AD * Math.pow(2 + (0.2 * WUBS), AD2Purchase)
     document.getElementById("ad").innerHTML = AD + " AD"
+    AD *= allDamageCalc()
+}
+function allDamageCalc(){
+    dmg = 1
+    if(playerCurrentHp >= (playerHp*0.75))
+    dmg *= Math.pow(4, D14)
 }
 playerHpBar = document.getElementById("playerhpbar");
 hpBar = document.getElementById("enemyhpbar")
@@ -298,6 +305,12 @@ function loadPerk(perk){
         perkeffect.innerHTML = "Currently: /" + Math.max(1, 0.5 * Math.pow((D13+1),4)) + ", \n Next: /" + Math.max(1, 0.5 * Math.pow((D13+2),4))
         perkhover = "D3"
     }
+    if(perk == "D4"){
+        perktitle.innerHTML = "Overwhelm (" + D13 + "/10)"
+        perkdesc.innerHTML = "Your resistance to damage reduces enemy morale, making them take more damage while you are above 75% health."
+        perkeffect.innerHTML = "Currently: /" + Math.max(1, Math.pow(4,(D14))) + ", \n Next: /" + Math.max(1, Math.pow(4,(D14+1)))
+        perkhover = "D4"
+    }
 }
 function buyPerk(){
     if(perkhover == "D1"){
@@ -326,6 +339,14 @@ function buyPerk(){
             document.getElementById("bigsword").innerHTML = "Cost: " + Math.floor((50 * Math.floor(Math.pow(10, AD2Purchase))) / Math.max(1, 0.5 * Math.pow((D13+1),4)))
         }
     }
+    if(perkhover == "D3"){
+        if(tomes >= 3){
+            tomeBank+=3;
+            tomes-=3;
+            D13 += 1;
+            document.getElementById("tomes").innerHTML = tomes + " tomes";
+        }
+    }
     loadPerk(perkhover)
 }
 
@@ -349,6 +370,9 @@ document.getElementById("D2").addEventListener("mouseover", function(z){
 })
 document.getElementById("D3").addEventListener("mouseover", function(z){
     loadPerk("D3");
+})
+document.getElementById("D4").addEventListener("mouseover", function(z){
+    loadPerk("D4");
 })
 
 
